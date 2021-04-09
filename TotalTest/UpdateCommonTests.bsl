@@ -1,0 +1,1 @@
+﻿RunApp("git pull origin master", "C:\Users\Administrator\git\commonTests\", true);
