@@ -4,21 +4,30 @@
 // - Update configuration
 // - Unlock infobase
 
-lock ( _, true );
+disconnect ( _ );
 restore ( _ );
 update ( _ );
-lock ( _, false );
 
-// ********************
-// Procedures
-// ********************
-
-Procedure lock ( Params, Locking )
+Procedure disconnect ( Params )
 	
-	p = Call ( "Tester.Infobase.Lock.Params" );
-	FillPropertyValues ( p, Params );
-	p.Lock = Locking;
-	Call("Tester.Infobase.Lock", p);
+	connector = new ServerAdministration ( Params.Server );
+	clusters = connector.GetClusters ();
+	for each cluster in clusters do
+		cluster.Authenticate ();
+		infobases = cluster.GetInfoBases ();
+		for each ibase in infobases do
+			if ( ibase.Name = AppName ) then
+				ibase.Authenticate ( Params.IBUser, Params.IBPassword );
+				sessions = ibase.GetSessions ();
+				for each session in sessions do
+					if ( session.ApplicationName <> "RAS" ) then
+						session.TerminateSession ();
+					endif;
+				enddo;
+				return;
+			endif;
+		enddo;
+	enddo;
 	
 EndProcedure
 

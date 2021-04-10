@@ -1,7 +1,7 @@
 ﻿result = undefined;
 cmd = new Array ();
 if ( _.Platform = undefined ) then
-	cmd.add ( """C:\Program Files (x86)\1cv8\common\1cestart.exe""" );
+	cmd.add ( "/opt/1cv8/common/1cestart.exe" );
 else
 	cmd.add ( """%Platform""" );
 endif;

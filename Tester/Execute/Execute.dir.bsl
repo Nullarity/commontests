@@ -8,13 +8,16 @@ version = _.Version;
 if ( version <> undefined ) then
 	SetVersion ( version );
 endif;
-closeApps ();
 if ( not _.TestingOnly ) then
 	Call ( "Tester.Infobase.Deploy", _ );
 endif;
 if ( _.UpdateOnly ) then
 	return;
 endif;
+
+return;
+
+closeApps ();
 testEnvironment ( _ );
 runTests ( _ );
 

@@ -9,17 +9,18 @@ if ( edt = undefined ) then
 	endif;
 else
 	cmd = new Array ();
+	cmd.Add ( "!/bash/sh" );
 	cmd.Add ( "cd " + _.GitFolder );
 	cmd.Add ( "git pull https://" + _.GitUser + ":" + _.GitPassword + "@" + _.GitRepo + " -f" );
 	folder = GetTempFileName ();
 	CreateDirectory ( folder );
 	cmd.Add ( "ring " + edt + " workspace export --workspace-location """ + _.Workspace + """ --project-name " + _.Project + " --configuration-files " + folder );
-	file = GetTempFileName ( "bat" );
+	file = GetTempFileName ( "sh" );
 	body = new TextDocument ();
 	body.SetText ( StrConcat ( cmd, Chars.LF ) );
 	body.Write ( file, TextEncoding.System );
 	result = 0;
-	RunApp ( file, , true, result );
+	RunApp ( "sh " + file, , true, result );
 	if ( result <> 0 ) then
 		Stop ( "ring edt@xxx workspace export error: " + result );
 	endif;

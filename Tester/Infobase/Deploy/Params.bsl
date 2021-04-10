@@ -9,7 +9,7 @@ p.Insert ( "ServerUser" ); // Optional
 p.Insert ( "ServerPassword" ); // Optional
 p.Insert ( "Server" );
 p.Insert ( "ServerIBName" );
-p.Insert ( "PermissionCode", "ConfigurationUpdate" );
+p.Insert ( "PermissionCode" );
 p.Insert ( "IBName" ); // Infobase name in the 1C:Starter list
 p.Insert ( "IBUser" );
 p.Insert ( "IBPassword" ); // Optional
