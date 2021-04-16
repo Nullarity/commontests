@@ -26,10 +26,15 @@ else
 	endif;
 	DeleteFiles ( file );
 	cmd = Call ( "Tester.Infobase.Common.Prepare", _ );
-	cmd = cmd + " /LoadConfigFromFiles """ + folder + """ -force /UpdateDBCfg";
+	log = GetTempFileName ( "txt" );
+	cmd = cmd + " /out""" + log + """ /DisableSplash /DisableStartupDialogs /DisableStartupMessages /LoadConfigFromFiles """ + folder + """ -force /UpdateDBCfg";
 	result = Call ( "Tester.Infobase.Common.Run", cmd );
 	if ( result <> 0 ) then
-		Stop ( _.IBName + " database updating error occured. Folder with config files: " + folder );
+		doc = new TextDocument ();
+		doc.Read ( log );
+		content = doc.GetText ();
+		Stop ( _.IBName + " database updating error occured. Folder with config files: " + folder + ", Log: " + content );
 	endif;
+	DeleteFiles ( log );
 	DeleteFiles ( folder );
 endif;

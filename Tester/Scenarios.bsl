@@ -9,7 +9,15 @@ Function getList(Application, Exceptions, Folder)
 		|where not Scenarios.DeletionMark
 		|and Scenarios.Type = value ( Enum.Scenarios.Scenario )
 		|and Scenarios.Application.Description = &Application
+		|and Scenarios.Path not like ""Common%""
+		|and Scenarios.Path not like ""Select%""
+		|and Scenarios.Path not like ""Table%""
+		|and Scenarios.Path not like ""Shared%""
+		|and Scenarios.Path not like ""Tester%""
+		|and Scenarios.Path not like ""Tools%""
+		|and Scenarios.Path not like ""TotalTest%""
 		|and Scenarios.Path not like ""Trash%""
+		|and Scenarios.Path not like ""InitialDatabase%""
 		|";
 	if (Folder <> undefined) then
 		s = s + "

@@ -14,15 +14,14 @@ __.CheckLogic = true;
 __.LocalCurrency = "MDL";
 computer = ComputerName();
 __.ComputerName = computer;
-__.TestServer = Left ( computer, "tc" );
+__.TestServer = Left ( computer, 2 ) = "tc";
 __.Company = "ABC Distributions";
-__.IBase = "c5";
+__.IBase = AppName;
 __.Tenant = "0C931F556B";
 __.Performance = 1;
 if (__.TestServer) then
 	__.Files = "/mnt/testing/" + AppName + "/";
 	__.Performance = 2;
-	endif;
 else
 	if ( Framework.IsLinux () ) then
 		__.Files = "/$HOME/Testing/" + AppName + "/";

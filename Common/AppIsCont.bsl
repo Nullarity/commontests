@@ -1,1 +1,1 @@
-﻿return AppName = "Cont5";
+﻿return AppName = "c5";
