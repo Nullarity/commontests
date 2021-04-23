@@ -6,6 +6,12 @@ Function getList(Application, Exceptions, Folder)
 	s = "
 		|select allowed Scenarios.Ref as Scenario
 		|from Catalog.Scenarios as Scenarios
+		|	//
+		|	// Log
+		|	//
+		|	left join InformationRegister.Log as Log
+		|	on Log.Scenario = Scenarios.Ref
+		|	and Log.Session = &Session
 		|where not Scenarios.DeletionMark
 		|and Scenarios.Type = value ( Enum.Scenarios.Scenario )
 		|and Scenarios.Application.Description = &Application
@@ -30,9 +36,10 @@ Function getList(Application, Exceptions, Folder)
 			|";
 	endif;
 	s = s + "
-		|order by Scenarios.Description
+		|order by isnull ( Log.Duration, 0 ) desc, Scenarios.Description
 		|";
 	q = new Query(s);
+	q.SetParameter("Session", SessionParameters.Session);
 	q.SetParameter("Application", Application);
 	q.SetParameter("Exceptions", Exceptions);
 	return q.Execute().Unload().UnloadColumn("Scenario");
