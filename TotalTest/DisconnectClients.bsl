@@ -1,4 +1,4 @@
-﻿// Disconnect gently
+﻿// Disconnect gently 5 potential sessions
 for i = 0 to 5 do
 	try
 		Connect ( , AppData.Port + i );
@@ -7,14 +7,13 @@ for i = 0 to 5 do
 	endtry;
 enddo;
 
-// Kill
+// Kill with changes to survive
 RunApp ( "pkill -f 1cv8c.*testclient", , true );
 Pause ( 3 );
-// Kill
 RunApp ( "pkill -f 1cv8c.*TESTCLIENT", , true );
 Pause ( 3 );
 
-// Terminate
+// Massacre
 RunApp ( "pkill -9 -f 1cv8c.*testclient", , true );
 Pause ( 3 );
 RunApp ( "pkill -9 -f 1cv8c.*TESTCLIENT", , true );
