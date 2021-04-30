@@ -9,16 +9,18 @@ if ( edt = undefined ) then
 	endif;
 else
 	cmd = new Array ();
-	cmd.Add ( "!/bash/sh" );
+	cmd.Add ( "#!/bin/bash" );
 	cmd.Add ( "cd " + _.GitFolder );
-	cmd.Add ( "git pull https://" + _.GitUser + ":" + _.GitPassword + "@" + _.GitRepo + " -f" );
+	cmd.Add ( "git pull ssh://git@" + _.GitRepo + " -f" );
 	folder = GetTempFileName ();
 	CreateDirectory ( folder );
-	cmd.Add ( "ring " + edt + " workspace export --workspace-location """ + _.Workspace + """ --project-name " + _.Project + " --configuration-files " + folder );
+	cmd.Add ( _.Ring + " " + edt + " workspace export --workspace-location """ + _.Workspace + """ --project-name " + _.Project + " --configuration-files " + folder );
 	file = GetTempFileName ( "sh" );
-	body = new TextDocument ();
-	body.SetText ( StrConcat ( cmd, Chars.LF ) );
-	body.Write ( file, TextEncoding.System );
+	writer = new TextWriter ( file, TextEncoding.ANSI );
+	writer.Close ();
+	writer = new TextWriter ( file, , , true, Chars.LF );
+	writer.Write ( StrConcat ( cmd, Chars.LF ) );
+	writer.Close ();
 	result = 0;
 	RunApp ( "sh " + file, , true, result );
 	if ( result <> 0 ) then

@@ -24,6 +24,7 @@ p.Insert ( "Exceptions" ); // Optional. Array of excuded from testing scenarios
 p.Insert ( "UpdateOnly", false ); // Do not run tests
 p.Insert ( "TestingOnly", false ); // Do not update
 p.Insert ( "EDT" ); // Optional, edt version, for instance: edt@1.15.0:x86_64
+p.Insert ( "Ring", "/opt/1C/1CE/components/1c-enterprise-ring-0.11.10+2-x86_64/ring" );
 
 // The following parametes are mandatory if EDT parameter defined
 p.Insert ( "Project" ); // Edt project name

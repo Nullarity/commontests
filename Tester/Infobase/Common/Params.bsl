@@ -13,6 +13,7 @@ p.Insert ( "RepoAddress" );
 p.Insert ( "RepoUser" );
 p.Insert ( "RepoPassword" );
 p.Insert ( "EDT", undefined );
+p.Insert ( "Ring", undefined );
 p.Insert ( "Project" );
 p.Insert ( "Workspace" );
 p.Insert ( "GitFolder" );

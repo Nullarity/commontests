@@ -24,7 +24,7 @@ if ( object.Name = "Addresses" ) then
 	endtry;
 else
 	list = Activate ( "#List" );
-	search = new Map ();
+	search = Call ( "Common.Find.Params" );
 	if ( object.Name = "Organizations" ) then
 		column = "Name";
 	else
@@ -33,13 +33,17 @@ else
 	if ( object.Name = "Items" ) then
 		Clear ( "#WarehouseFilter" );
 	endif;
-	search.Insert ( column, value );
-	list.GotoFirstRow ();
+	search.Where = column;
+	search.What = value;
+	search.CompareType = 2;
+
+	Call ( "Common.Find", search );
 	try
-		found = list.GotoRow ( search, RowGotoDirection.Down );
+		found = 0 > Call ( "Table.Count", list );
 	except
 		found = false;
 	endtry;
+
 endif;
 
 if ( not found ) then
