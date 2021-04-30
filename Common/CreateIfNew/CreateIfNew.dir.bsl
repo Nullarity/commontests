@@ -39,7 +39,7 @@ else
 
 	Call ( "Common.Find", search );
 	try
-		found = 0 > Call ( "Table.Count", list );
+		found = 0 < Call ( "Table.Count", list );
 	except
 		found = false;
 	endtry;
