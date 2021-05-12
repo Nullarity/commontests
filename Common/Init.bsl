@@ -5,7 +5,7 @@ StandardProcessing = false;
 SpecialFields.LineNo = "#";
 
 if (__ = undefined) then
-	__ = new Structure("Ports, CheckLogic, LocalCurrency, ComputerName, TestServer, Company, Performance, IBase, Tenant, Files");
+	__ = new Structure("Ports, CheckLogic, LocalCurrency, ComputerName, TestServer, Company, Performance, IBase, Tenant, Files, AdminUser");
 else
 	return;
 endif;
@@ -14,7 +14,13 @@ __.CheckLogic = true;
 __.LocalCurrency = "MDL";
 computer = ComputerName();
 __.ComputerName = computer;
-__.TestServer = Left ( computer, 2 ) = "tc";
+testServer = Left ( computer, 2 ) = "tc";
+__.TestServer = testServer;
+if ( testServer ) then
+	__.AdminUser = "admin" + Mid ( computer, 3 );
+else
+	__.AdminUser = "admin";
+endif;
 __.Company = "ABC Distributions";
 __.IBase = AppName;
 __.Tenant = "0C931F556B";
@@ -46,7 +52,7 @@ __.Ports [ "admin" ] = AppData.ConnectedPort;
 Procedure runClient ()
 	
 	p = Call("Tester.Run.Params");
-	p.User = "admin";
+	p.User = __.AdminUser;
 	p.IBase = __.IBase;
 	tenant = __.Tenant;
 	params = new Array ();

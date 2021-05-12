@@ -13,6 +13,7 @@ if ( _.UseOpenMenu ) then
 	endif;
 endif;	
 form = With ( ? ( _.Title = undefined, undefined, _.Title ) );
+
 settings = Get ( "#UserSettings" );
 if ( not settings.CurrentVisible () ) then
 	Click ( "#CmdOpenSettings" );
