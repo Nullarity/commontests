@@ -3,7 +3,7 @@ if ( stack.IsVersion
 	or __.TestServer
 	or not locked ( stack.Module ) ) then
 	Pause(1);
-	return Call ( "Common.GetID" );
+	return TestingID ();
 else
 	return _;
 endif;

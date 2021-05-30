@@ -43,6 +43,8 @@ else
 		search = new Map ();
 		if ( object.Name = "Organizations" ) then
 			column = "Name";
+		elsif ( object.Name = "Positions" ) then
+			column = "Description, Ro";
 		else
 			column = "Description";
 		endif;
