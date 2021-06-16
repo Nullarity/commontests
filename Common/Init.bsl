@@ -30,7 +30,7 @@ if (__.TestServer) then
 	__.Performance = 2;
 else
 	if ( Framework.IsLinux () ) then
-		__.Files = "/$HOME/Testing/" + AppName + "/";
+		__.Files = "/home/dmitry/testing/" + AppName + "/";
 	else
 		__.Files = "/%USERPROFILE%/Testing/" + AppName + "/";
 	endif;
