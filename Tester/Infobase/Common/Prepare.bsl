@@ -4,7 +4,7 @@ if ( _.Platform = undefined ) then
 else
 	cmd.add ( """%Platform""" );
 endif;
-cmd.Add ( "designer /DisableStartupMessages" );
+cmd.Add ( "designer /DisableSplash /DisableStartupDialogs /DisableStartupMessages" );
 if ( _.IBName <> undefined ) then
 	cmd.Add ( "/IBName ""%IBName""" );
 endif;
