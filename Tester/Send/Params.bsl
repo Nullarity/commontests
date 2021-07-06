@@ -6,7 +6,7 @@ p.Insert ( "To" );
 p.Insert ( "Subject" );
 p.Insert ( "Body" );
 p.Insert ( "Attachment" );
-p.Insert ( "SMTPServerAddress" );
+p.Insert ( "SMTPServer" );
 p.Insert ( "SMTPUser" );
 p.Insert ( "SMTPPassword" );
 return p;
