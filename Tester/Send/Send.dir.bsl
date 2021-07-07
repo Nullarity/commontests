@@ -2,7 +2,12 @@
 profile.SMTPServerAddress = _.SMTPServer;
 profile.SMTPUser = _.SMTPUser;
 profile.SMTPPassword = _.SMTPPassword;
-profile.SMTPUseSSL = true;
+if ( _.SMTPPort <> undefined ) then
+	profile.SMTPPort = _.SMTPPort;
+endif;
+if ( _.SMTPUseSSL <> undefined ) then
+	profile.SMTPUseSSL = _.SMTPUseSSL;
+endif;
 
 msg = new InternetMailMessage ();
 msg.From = _.From;

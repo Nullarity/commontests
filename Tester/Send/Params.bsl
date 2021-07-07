@@ -9,4 +9,6 @@ p.Insert ( "Attachment" );
 p.Insert ( "SMTPServer" );
 p.Insert ( "SMTPUser" );
 p.Insert ( "SMTPPassword" );
+p.Insert ( "SMTPPort" );
+p.Insert ( "SMTPUseSSL" );
 return p;
