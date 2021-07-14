@@ -9,6 +9,6 @@
 Click ( _.Button );
 With ( "Find" );
 Pick ( "#FieldSelector", _.Where );
-Set ( "#Pattern", _.What );
 Set ( "#CompareType", _.CompareType );
+Set ( "#Pattern", _.What );
 Click ( "#Find" );
