@@ -12,6 +12,15 @@ Function getList(Application, Exceptions, Folder)
 		|	left join InformationRegister.Log as Log
 		|	on Log.Scenario = Scenarios.Ref
 		|	and Log.Session = &Session
+		|	//
+		|	// ExcludeTags
+		|	//
+		|	left join (
+		|		select Tags.Ref as Key
+		|		from Catalog.TagKeys.Tags as Tags
+		|		where Tags.Tag.Description = ""rebuild""
+		|	) as ExcludeTags
+		|	on ExcludeTags.Key = Scenarios.Tag
 		|where not Scenarios.DeletionMark
 		|and Scenarios.Type = value ( Enum.Scenarios.Scenario )
 		|and Scenarios.Application.Description = &Application
@@ -24,6 +33,7 @@ Function getList(Application, Exceptions, Folder)
 		|and Scenarios.Path not like ""TotalTest%""
 		|and Scenarios.Path not like ""Trash%""
 		|and Scenarios.Path not like ""InitialDatabase%""
+		|and ExcludeTags.Key is null
 		|";
 	if (Folder <> undefined) then
 		s = s + "
