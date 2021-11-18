@@ -4,21 +4,22 @@
 // - Update configuration
 // - Unlock infobase
 
-lock ( true, _.Server, _.IBUser, _.IBPassword );
+lock ( true, _.Server, _.IBName, _.IBUser, _.IBPassword );
 restore ( _ );
 update ( _ );
-lock ( false, _.Server, _.IBUser, _.IBPassword );
+lock ( false, _.Server, _.IBName, _.IBUser, _.IBPassword );
 
-Procedure lock ( Lock, Server, User, Password )
+Procedure lock ( Lock, Server, IB, User, Password )
 	
+	pswd = ? ( Password = undefined, "", Password );
 	connector = new ServerAdministration ( Server );
 	clusters = connector.GetClusters ();
 	for each cluster in clusters do
 		cluster.Authenticate ();
 		infobases = cluster.GetInfoBases ();
 		for each ibase in infobases do
-			if ( ibase.Name = "agrimatco" ) then
-				ibase.Authenticate ( User, Password );
+			if ( ibase.Name = IB ) then
+				ibase.Authenticate ( User, pswd );
 				if ( Lock ) then
 					start = CurrentDate ();
 					ibase.LockBeginTime = start;
