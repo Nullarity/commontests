@@ -7,7 +7,7 @@
 lock ( true, _.Server, _.IBUser, _.IBPassword );
 restore ( _ );
 update ( _ );
-unlock ( false, _.Server, _.IBUser, _.IBPassword );
+lock ( false, _.Server, _.IBUser, _.IBPassword );
 
 Procedure lock ( Lock, Server, User, Password )
 	
