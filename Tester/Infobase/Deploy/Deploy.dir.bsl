@@ -4,27 +4,41 @@
 // - Update configuration
 // - Unlock infobase
 
-
-disconnect ( _ );
+lock ( true, _.Server, _.IBUser, _.IBPassword );
 restore ( _ );
 update ( _ );
+unlock ( false, _.Server, _.IBUser, _.IBPassword );
 
-Procedure disconnect ( Params )
+Procedure lock ( Lock, Server, User, Password )
 	
-	connector = new ServerAdministration ( Params.Server );
+	connector = new ServerAdministration ( Server );
 	clusters = connector.GetClusters ();
 	for each cluster in clusters do
 		cluster.Authenticate ();
 		infobases = cluster.GetInfoBases ();
 		for each ibase in infobases do
-			if ( ibase.Name = AppName ) then
-				ibase.Authenticate ( Params.IBUser, Params.IBPassword );
-				sessions = ibase.GetSessions ();
-				for each session in sessions do
-					if ( session.ApplicationName <> "RAS" ) then
-						session.TerminateSession ();
-					endif;
-				enddo;
+			if ( ibase.Name = "agrimatco" ) then
+				ibase.Authenticate ( User, Password );
+				if ( Lock ) then
+					start = CurrentDate ();
+					ibase.LockBeginTime = start;
+					ibase.LockMessage = "Infobase is updating";
+					ibase.SessionStartPermissionCode = "ConfigurationUpdate";
+				endif;
+				ibase.LockScheduledJobs = Lock;
+				ibase.SessionsLockEnabled = Lock;
+				ibase.Write ();
+				if ( Lock ) then
+					sessions = ibase.GetSessions ();
+					for each session in sessions do
+						if ( session.ApplicationName <> "RAS" ) then
+							try
+								session.TerminateSession ();
+							except
+							endtry;
+						endif;
+					enddo;
+				endif;
 				return;
 			endif;
 		enddo;
