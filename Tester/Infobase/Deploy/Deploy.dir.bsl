@@ -30,14 +30,24 @@ Procedure lock ( Lock, Server, IB, User, Password )
 				ibase.SessionsLockEnabled = Lock;
 				ibase.Write ();
 				if ( Lock ) then
-					sessions = ibase.GetSessions ();
-					for each session in sessions do
-						if ( session.ApplicationName <> "RAS" ) then
-							try
-								session.TerminateSession ();
-							except
-							endtry;
+					attempts = 10;
+					while ( attempts > 0 ) do
+						sessions = ibase.GetSessions ();
+						alive = 0;
+						for each session in sessions do
+							if ( session.ApplicationName <> "RAS" ) then
+								alive = alive + 1;
+								try
+									session.TerminateSession ();
+								except
+								endtry;
+							endif;
+						enddo;
+						if ( alive = 0 ) then
+							break;
 						endif;
+						Pause ( 5 );
+						attempts = attempts - 1;
 					enddo;
 				endif;
 				return;
