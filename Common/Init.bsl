@@ -26,11 +26,11 @@ __.IBase = AppName;
 __.Tenant = "0C931F556B";
 __.Performance = 1;
 if (__.TestServer) then
-	__.Files = "/mnt/testing/" + AppName + "/";
+	__.Files = "/home/dmitry/testing/" + AppName + "/";
 	__.Performance = 2;
 else
 	if ( Framework.IsLinux () ) then
-		__.Files = "/home/dmitry/testing/" + AppName + "/";
+		__.Files = "/home/dmitry/testing/" + AppName + "/Files/";
 	else
 		__.Files = "/%USERPROFILE%/Testing/" + AppName + "/";
 	endif;
