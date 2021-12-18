@@ -26,7 +26,7 @@ __.IBase = AppName;
 __.Tenant = "0C931F556B";
 __.Performance = 1;
 if (__.TestServer) then
-	__.Files = "/home/dmitry/testing/" + AppName + "/Files/";
+	__.Files = "/mnt/testing/" + AppName + "/Files/";
 	__.Performance = 2;
 else
 	if ( Framework.IsLinux () ) then
