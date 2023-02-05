@@ -2,7 +2,7 @@
 CloseAll ();
 
 if ( _ = "Core"
-	or _ = "c5" ) then
+	or _ = "n5" ) then
 	Run ( "TestDefaultCompany",  );
 	Run ( "TestPerformer",  );
 	Run ( "TestMeasures",  );
